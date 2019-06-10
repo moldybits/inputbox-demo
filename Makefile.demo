@@ -1,0 +1,17 @@
+CPP         := g++
+CPPFLAGS    := -Wall -Wextra -g -fmax-errors=3 $(shell sdl2-config --cflags)
+INCLUDES    := -I./include
+LIBRARYS    := $(shell sdl2-config --libs) -lSDL2_ttf
+OBJECTS     := obj/demo.o
+PROGRAM     := demo
+
+vpath %.cpp src src/state # ???
+
+$(PROGRAM): $(OBJECTS)
+	$(CPP) $(CPPFLAGS) $(INCLUDES) $(OBJECTS) -o $(PROGRAM) $(LIBRARYS)
+
+obj/%.o: %.cpp
+	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	rm -vf $(PROGRAM) $(OBJECTS)
